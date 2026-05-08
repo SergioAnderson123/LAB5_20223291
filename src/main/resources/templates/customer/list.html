@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <title>Lista de Clientes</title>
+
+</head>
+<body>
+
+<nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+<main>
+    <div class="container px-4 py-5">
+        <h1 class="pb-2 border-bottom">Lista de Clientes</h1>
+
+        <div th:if="${mensaje}" class="alert alert-success mt-3">
+            <span th:text="${mensaje}"></span>
+        </div>
+
+        <div class="d-flex mt-3 mb-4">
+            <a class="btn btn-primary" th:href="@{/customer/new}">Nuevo Cliente</a>
+        </div>
+
+        <table class="table table-striped mt-4">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre Completo</th>
+                <th>Tipo de Documento (RUC Oo DNI)</th>
+                <th>Numero de Documento</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="customer, info : ${listaCustomers}">
+                <td th:text="${info.index + 1}"></td>
+                <td th:text="${customer.name}"></td>
+                <td th:text="${customer.documentType}"></td>
+                <td th:text="${customer.document}"></td>
+                <td>
+                    <a class="btn btn-warning btn-sm"
+                       th:href="@{'/customer/edit?id=' + ${customer.id}}">Editar</a>
+                    <a class="btn btn-danger btn-sm"
+                       th:href="@{'/customer/delete?id=' + ${customer.id}}">Eliminar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

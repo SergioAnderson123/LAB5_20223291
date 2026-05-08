@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <title>Formulario Cliente</title>
+</head>
+
+<body>
+
+<nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+<main>
+    <div class="container px-4 py-5">
+        <h1 class="pb-2 border-bottom" th:text="${accion} + ' Clientes'"></h1>
+
+        <form method="post" th:action="@{/customer/save}" th:object="${customer}" class="mt-4">
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="mb-3">
+                <label class="form-label">Nombre Completo</label>
+                <input type="text" class="form-control" th:field="*{name}"
+                       th:classappend="${#fields.hasErrors('name')} ? 'is-invalid'"/>
+                <div class="invalid-feedback" th:errors="*{name}"></div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Tipo de Documento (DNI o RUC)</label>
+                <input type="text" class="form-control" th:field="*{documentType}"
+                       th:classappend="${#fields.hasErrors('documentType')} ? 'is-invalid'"/>
+                <div class="invalid-feedback" th:errors="*{documentType}"></div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Numero de Documento</label>
+                <input type="text" class="form-control" th:field="*{document}"
+                       th:classappend="${#fields.hasErrors('document')} ? 'is-invalid'"/>
+                <div class="invalid-feedback" th:errors="*{document}"></div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a class="btn btn-secondary ms-2" th:href="@{/customer}">Cancelar</a>
+
+        </form>
+    </div>
+</main>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
